@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;UNITY</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -68,9 +68,6 @@
     </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\GraphicsResource.cs">
       <Link>MonoGame.Framework\Graphics\GraphicsResource.cs</Link>
-    </Compile>
-    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteBatch.cs">
-      <Link>MonoGame.Framework\Graphics\SpriteBatch.cs</Link>
     </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteBatcher.cs">
       <Link>MonoGame.Framework\Graphics\SpriteBatcher.cs</Link>
@@ -179,8 +176,8 @@
     <Compile Include="MonoGame.Framework\GraphicsDeviceManager.cs" />
     <Compile Include="MonoGame.Framework\Graphics\Effect\Effect.cs" />
     <Compile Include="MonoGame.Framework\Graphics\GraphicsDevice.cs" />
+    <Compile Include="MonoGame.Framework\Graphics\SpriteBatch.cs" />
     <Compile Include="MonoGame.Framework\Utilities\Hash.cs" />
-    <None Include="MonoGame.Framework\Graphics\SpriteBatchCustom.cs" />
     <Compile Include="MonoGame.Framework\Graphics\States\BlendState.cs" />
     <Compile Include="MonoGame.Framework\Graphics\States\DepthStencilState.cs" />
     <Compile Include="MonoGame.Framework\Graphics\States\RasterizerState.cs" />
