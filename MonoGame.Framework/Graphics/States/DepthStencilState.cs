@@ -2,6 +2,7 @@
 {
 	public enum  DepthStencilState
 	{
-		Default
+		Default,
+		None
 	}
 }

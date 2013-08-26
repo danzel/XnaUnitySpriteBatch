@@ -2,6 +2,7 @@
 {
 	public enum RasterizerState
 	{
-		CullNone
+		CullNone,
+		CullCounterClockwise
 	}
 }
