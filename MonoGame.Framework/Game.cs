@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Microsoft.Xna.Framework
@@ -10,6 +11,7 @@ namespace Microsoft.Xna.Framework
 
 		internal static Game Instance { get; private set; }
 		public GameWindow Window { get; private set; }
+		public ContentManager Content { get; private set; }
 
 		public void Dispose()
 		{
