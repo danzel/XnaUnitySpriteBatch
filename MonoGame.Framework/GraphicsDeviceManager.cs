@@ -7,6 +7,7 @@ namespace Microsoft.Xna.Framework
 	{
 		public GraphicsDeviceManager(Game game)
 		{
+			GraphicsDevice = game.GraphicsDevice;
 		}
 
 		public DisplayOrientation SupportedOrientations { get; set; }

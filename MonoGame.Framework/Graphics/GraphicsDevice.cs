@@ -8,6 +8,11 @@ namespace Microsoft.Xna.Framework.Graphics
 		public Texture2D[] Textures;
 		public Matrix Matrix;
 
+		internal GraphicsDevice(Viewport viewport)
+		{
+			Viewport = viewport;
+		}
+
 		public Viewport Viewport { get; private set; }
 
 		public void DrawUserIndexedPrimitives(PrimitiveType primitiveType, VertexPositionColorTexture[] vertexData, int vertexOffset, int numVertices, short[] indexData, int indexOffset, int primitiveCount, VertexDeclaration vertexDeclaration)

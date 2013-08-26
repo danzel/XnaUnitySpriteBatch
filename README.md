@@ -25,3 +25,9 @@ Graphics/Texture2D
 Media/Song
 Game
 GraphicsDeviceManager
+
+To use:
+Set up a unity GameObject
+In the constructor create your game object and call UnityInitialise
+Add a FixedUpdate function and call UnityFixedUpdate
+Add a Update function and call UnityUpdate
