@@ -159,6 +159,9 @@
     <Compile Include="..\MonoGame\MonoGame.Framework\Rectangle.cs">
       <Link>MonoGame.Framework\Rectangle.cs</Link>
     </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Utilities\Hash.cs">
+      <Link>MonoGame.Framework\Utilities\Hash.cs</Link>
+    </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\Vector2.cs">
       <Link>MonoGame.Framework\Vector2.cs</Link>
     </Compile>
@@ -179,7 +182,6 @@
     <Compile Include="MonoGame.Framework\Graphics\Effect\Effect.cs" />
     <Compile Include="MonoGame.Framework\Graphics\GraphicsDevice.cs" />
     <Compile Include="MonoGame.Framework\Graphics\SpriteBatch.cs" />
-    <Compile Include="MonoGame.Framework\Utilities\Hash.cs" />
     <Compile Include="MonoGame.Framework\Graphics\States\BlendState.cs" />
     <Compile Include="MonoGame.Framework\Graphics\States\DepthStencilState.cs" />
     <Compile Include="MonoGame.Framework\Graphics\States\RasterizerState.cs" />
