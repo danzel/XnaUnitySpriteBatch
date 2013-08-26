@@ -63,11 +63,50 @@
     <Compile Include="..\MonoGame\MonoGame.Framework\GameWindow.cs">
       <Link>MonoGame.Framework\GameWindow.cs</Link>
     </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\GraphicsExtensions.cs">
+      <Link>MonoGame.Framework\Graphics\GraphicsExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\GraphicsResource.cs">
+      <Link>MonoGame.Framework\Graphics\GraphicsResource.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteBatch.cs">
+      <Link>MonoGame.Framework\Graphics\SpriteBatch.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteBatcher.cs">
+      <Link>MonoGame.Framework\Graphics\SpriteBatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteBatchItem.cs">
+      <Link>MonoGame.Framework\Graphics\SpriteBatchItem.cs</Link>
+    </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteEffects.cs">
       <Link>MonoGame.Framework\Graphics\SpriteEffects.cs</Link>
     </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteSortMode.cs">
       <Link>MonoGame.Framework\Graphics\SpriteSortMode.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SurfaceFormat.cs">
+      <Link>MonoGame.Framework\Graphics\SurfaceFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\Vertices\IVertexType.cs">
+      <Link>MonoGame.Framework\Graphics\Vertices\IVertexType.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\Vertices\PrimitiveType.cs">
+      <Link>MonoGame.Framework\Graphics\Vertices\PrimitiveType.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\Vertices\VertexDeclaration.cs">
+      <Link>MonoGame.Framework\Graphics\Vertices\VertexDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\Vertices\VertexElement.cs">
+      <Link>MonoGame.Framework\Graphics\Vertices\VertexElement.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\Vertices\VertexElementFormat.cs">
+      <Link>MonoGame.Framework\Graphics\Vertices\VertexElementFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\Vertices\VertexElementUsage.cs">
+      <Link>MonoGame.Framework\Graphics\Vertices\VertexElementUsage.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\Vertices\VertexPositionColorTexture.cs">
+      <Link>MonoGame.Framework\Graphics\Vertices\VertexPositionColorTexture.cs</Link>
     </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\Viewport.cs">
       <Link>MonoGame.Framework\Graphics\Viewport.cs</Link>
@@ -140,7 +179,8 @@
     <Compile Include="MonoGame.Framework\GraphicsDeviceManager.cs" />
     <Compile Include="MonoGame.Framework\Graphics\Effect\Effect.cs" />
     <Compile Include="MonoGame.Framework\Graphics\GraphicsDevice.cs" />
-    <Compile Include="MonoGame.Framework\Graphics\SpriteBatch.cs" />
+    <Compile Include="MonoGame.Framework\Utilities\Hash.cs" />
+    <None Include="MonoGame.Framework\Graphics\SpriteBatchCustom.cs" />
     <Compile Include="MonoGame.Framework\Graphics\States\BlendState.cs" />
     <Compile Include="MonoGame.Framework\Graphics\States\DepthStencilState.cs" />
     <Compile Include="MonoGame.Framework\Graphics\States\RasterizerState.cs" />
