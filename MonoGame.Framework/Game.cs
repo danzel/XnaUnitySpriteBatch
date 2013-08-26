@@ -8,6 +8,9 @@ namespace Microsoft.Xna.Framework
 		public bool IsMouseVisible { get; set; }
 		public GraphicsDevice GraphicsDevice { get; private set; }
 
+		internal static Game Instance { get; private set; }
+		public GameWindow Window { get; private set; }
+
 		public void Dispose()
 		{
 			throw new NotImplementedException();

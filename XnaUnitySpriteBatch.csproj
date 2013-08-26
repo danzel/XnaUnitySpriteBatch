@@ -60,6 +60,9 @@
     <Compile Include="..\MonoGame\MonoGame.Framework\GameTime.cs">
       <Link>MonoGame.Framework\GameTime.cs</Link>
     </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\GameWindow.cs">
+      <Link>MonoGame.Framework\GameWindow.cs</Link>
+    </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteEffects.cs">
       <Link>MonoGame.Framework\Graphics\SpriteEffects.cs</Link>
     </Compile>
@@ -68,6 +71,33 @@
     </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\Viewport.cs">
       <Link>MonoGame.Framework\Graphics\Viewport.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Input\ButtonState.cs">
+      <Link>MonoGame.Framework\Input\ButtonState.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Input\MouseState.cs">
+      <Link>MonoGame.Framework\Input\MouseState.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Input\Touch\GestureSample.cs">
+      <Link>MonoGame.Framework\Input\Touch\GestureSample.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Input\Touch\GestureType.cs">
+      <Link>MonoGame.Framework\Input\Touch\GestureType.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Input\Touch\TouchCollection.cs">
+      <Link>MonoGame.Framework\Input\Touch\TouchCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Input\Touch\TouchLocation.cs">
+      <Link>MonoGame.Framework\Input\Touch\TouchLocation.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Input\Touch\TouchLocationState.cs">
+      <Link>MonoGame.Framework\Input\Touch\TouchLocationState.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Input\Touch\TouchPanel.cs">
+      <Link>MonoGame.Framework\Input\Touch\TouchPanel.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Input\Touch\TouchPanelCapabilities.cs">
+      <Link>MonoGame.Framework\Input\Touch\TouchPanelCapabilities.cs</Link>
     </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\MathHelper.cs">
       <Link>MonoGame.Framework\MathHelper.cs</Link>
@@ -103,6 +133,7 @@
       <Link>MonoGame.Framework\Vector4.cs</Link>
     </Compile>
     <Compile Include="DotNetUpdates\PureAttribute.cs" />
+    <Compile Include="DotNetUpdates\StringBuilderExtensions.cs" />
     <Compile Include="DotNetUpdates\Tuple.cs" />
     <Compile Include="MonoGame.Framework\Audio\SoundEffect.cs" />
     <Compile Include="MonoGame.Framework\Game.cs" />
