@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{85A5727F-E2BD-4652-9FF6-9AD710F696E2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Xna.Framework</RootNamespace>
+    <AssemblyName>XnaUnitySpriteBatch</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\MonoGame\MonoGame.Framework\BoundingBox.cs">
+      <Link>MonoGame.Framework\BoundingBox.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\BoundingFrustum.cs">
+      <Link>MonoGame.Framework\BoundingFrustum.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\BoundingSphere.cs">
+      <Link>MonoGame.Framework\BoundingSphere.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Color.cs">
+      <Link>MonoGame.Framework\Color.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\ContainmentType.cs">
+      <Link>MonoGame.Framework\ContainmentType.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\DisplayOrientation.cs">
+      <Link>MonoGame.Framework\DisplayOrientation.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\GameTime.cs">
+      <Link>MonoGame.Framework\GameTime.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteEffects.cs">
+      <Link>MonoGame.Framework\Graphics\SpriteEffects.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteSortMode.cs">
+      <Link>MonoGame.Framework\Graphics\SpriteSortMode.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\Viewport.cs">
+      <Link>MonoGame.Framework\Graphics\Viewport.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\MathHelper.cs">
+      <Link>MonoGame.Framework\MathHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Matrix.cs">
+      <Link>MonoGame.Framework\Matrix.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Plane.cs">
+      <Link>MonoGame.Framework\Plane.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\PlaneIntersectionType.cs">
+      <Link>MonoGame.Framework\PlaneIntersectionType.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Point.cs">
+      <Link>MonoGame.Framework\Point.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Quaternion.cs">
+      <Link>MonoGame.Framework\Quaternion.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Ray.cs">
+      <Link>MonoGame.Framework\Ray.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Rectangle.cs">
+      <Link>MonoGame.Framework\Rectangle.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Vector2.cs">
+      <Link>MonoGame.Framework\Vector2.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Vector3.cs">
+      <Link>MonoGame.Framework\Vector3.cs</Link>
+    </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Vector4.cs">
+      <Link>MonoGame.Framework\Vector4.cs</Link>
+    </Compile>
+    <Compile Include="DotNetUpdates\PureAttribute.cs" />
+    <Compile Include="DotNetUpdates\Tuple.cs" />
+    <Compile Include="MonoGame.Framework\Audio\SoundEffect.cs" />
+    <Compile Include="MonoGame.Framework\Game.cs" />
+    <Compile Include="MonoGame.Framework\GraphicsDeviceManager.cs" />
+    <Compile Include="MonoGame.Framework\Graphics\Effect\Effect.cs" />
+    <Compile Include="MonoGame.Framework\Graphics\GraphicsDevice.cs" />
+    <Compile Include="MonoGame.Framework\Graphics\SpriteBatch.cs" />
+    <Compile Include="MonoGame.Framework\Graphics\States\BlendState.cs" />
+    <Compile Include="MonoGame.Framework\Graphics\States\DepthStencilState.cs" />
+    <Compile Include="MonoGame.Framework\Graphics\States\RasterizerState.cs" />
+    <Compile Include="MonoGame.Framework\Graphics\States\SamplerState.cs" />
+    <Compile Include="MonoGame.Framework\Graphics\Texture2D.cs" />
+    <Compile Include="MonoGame.Framework\Media\Song.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
