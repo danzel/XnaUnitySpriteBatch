@@ -1,4 +1,5 @@
-﻿using UnityTexture = UnityEngine.Texture;
+﻿using System;
+using UnityTexture = UnityEngine.Texture2D;
 using UnityResources = UnityEngine.Resources;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,7 +13,7 @@ namespace Microsoft.Xna.Framework.Content
 		{
 			if (typeof(T) == typeof(Texture2D))
 			{
-				return new Texture2D((UnityTexture)UnityResources.Load(fileName)) as T;
+				return new Texture2D(UnityResources.Load(fileName, typeof(UnityTexture)) as UnityTexture) as T;
 			}
 
 			return default(T);

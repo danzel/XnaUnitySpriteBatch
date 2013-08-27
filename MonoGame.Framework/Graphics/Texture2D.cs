@@ -1,5 +1,5 @@
 ﻿using System;
-using UnityTexture = UnityEngine.Texture;
+using UnityTexture = UnityEngine.Texture2D;
 
 namespace Microsoft.Xna.Framework.Graphics
 {
