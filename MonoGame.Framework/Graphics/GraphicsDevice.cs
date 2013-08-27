@@ -84,7 +84,7 @@ namespace Microsoft.Xna.Framework.Graphics
 			for (int i = 0; i < count; i++)
 			{
 				var v = vertexData[i].Color.ToVector4();
-				res[i] = new UnityEngine.Color(v.X, v.Y, v.Z, v.W);
+				res[i] = new UnityEngine.Color(v.X / v.W, v.Y / v.W, v.Z / v.W, v.W);
 			}
 			return res;
 		}
