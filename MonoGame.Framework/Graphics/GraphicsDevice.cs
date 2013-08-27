@@ -31,7 +31,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		}
 
 		private readonly MaterialPool _materialPool = new MaterialPool();
-		private readonly Mesh _mesh = new Mesh();
+		private readonly MeshPool _meshPool = new MeshPool();
 
 		public void DrawUserIndexedPrimitives(PrimitiveType primitiveType, VertexPositionColorTexture[] vertexData, int vertexOffset, int numVertices, short[] indexData, int indexOffset, int primitiveCount, VertexDeclaration vertexDeclaration)
 		{
@@ -41,19 +41,17 @@ namespace Microsoft.Xna.Framework.Graphics
 			var material = _materialPool.Get();
 			material.mainTexture = Textures[0].Texture;
 
-			//todo
-			_mesh.Clear(); //todo: check the parameter
-			_mesh.vertices = GetVector3(vertexData, numVertices);
-			_mesh.uv = GetUV(vertexData, numVertices);
-			_mesh.colors = GetColor(vertexData, numVertices);
-			_mesh.triangles = GetIndex(indexData, primitiveCount * 3); //hack we know triangles have three
+			var mesh = _meshPool.Get();
+			mesh.Clear(); //todo: check the parameter
+			mesh.vertices = GetVector3(vertexData, numVertices);
+			mesh.uv = GetUV(vertexData, numVertices);
+			mesh.colors = GetColor(vertexData, numVertices);
+			mesh.triangles = GetIndex(indexData, primitiveCount * 3); //hack we know triangles have three
 			
 			//todo: check if necessary
-			_mesh.RecalculateNormals();
+			mesh.RecalculateNormals();
 
-			//throw new Exception(vertexData[0].TextureCoordinate + ", " + vertexData[1].TextureCoordinate + ", " + vertexData[2].TextureCoordinate + ", " + vertexData[3].TextureCoordinate);
-			//UnityGraphics.DrawMesh(_mesh, Matrix4x4.TRS(new Vector3(-Screen.width / 2, Screen.height / 2, 0), Quaternion.identity, new Vector3(Screen.width, Screen.height, 1)), _mat, 0);
-			UnityGraphics.DrawMesh(_mesh, _matrix, material, 0);
+			UnityGraphics.DrawMesh(mesh, _matrix, material, 0);
 		}
 
 		private UnityEngine.Vector3[] GetVector3(VertexPositionColorTexture[] vertexData, int count)
@@ -123,11 +121,32 @@ namespace Microsoft.Xna.Framework.Graphics
 				if (_materials.Count == _index)
 				{
 					_materials.Add(new Material(Shader.Find("Custom/SpriteShader")));
-					_materials[_index].renderQueue++;
+					_materials[_index].renderQueue += _index;
 				}
 
 				_index++;
 				return _materials[_index - 1];
+			}
+
+			public void Reset()
+			{
+				_index = 0;
+			}
+		}
+		private class MeshPool
+		{
+			private List<Mesh> _meshes = new List<Mesh>();
+			private int _index;
+
+			public Mesh Get()
+			{
+				if (_meshes.Count == _index)
+				{
+					_meshes.Add(new Mesh());
+				}
+
+				_index++;
+				return _meshes[_index - 1];
 			}
 
 			public void Reset()
