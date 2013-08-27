@@ -1,8 +1,17 @@
-﻿namespace Microsoft.Xna.Framework.Graphics
+﻿using UnityTexture = UnityEngine.Texture;
+
+namespace Microsoft.Xna.Framework.Graphics
 {
 	public class Texture2D
 	{
-		public int Width { get; set; }
-		public int Height { get; set; }
+		internal readonly UnityTexture Texture;
+
+		public Texture2D(UnityTexture texture)
+		{
+			Texture = texture;
+		}
+
+		public int Width { get { return Texture.width; } }
+		public int Height { get { return Texture.height; } }
 	}
 }
