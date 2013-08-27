@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 using UnityEngine;
 
 namespace Microsoft.Xna.Framework
@@ -37,6 +38,8 @@ namespace Microsoft.Xna.Framework
 		/// </summary>
 		public void UnityUpdate()
 		{
+			UpdateInput();
+
 			GraphicsDevice.ResetPools();
 			Draw(_gameTime);
 		}
@@ -45,6 +48,31 @@ namespace Microsoft.Xna.Framework
 		{
 			Initialize();
 			LoadContent();
+		}
+
+		private bool _mouseIsDown = false;
+
+		private const int MouseId = int.MinValue;
+
+		private void UpdateInput()
+		{
+			bool mouseIsDown = UnityEngine.Input.GetMouseButton(0);
+			if (!_mouseIsDown && mouseIsDown)
+				TouchPanel.AddEvent(MouseId, TouchLocationState.Pressed, ToMonoGame(UnityEngine.Input.mousePosition));
+			else if (_mouseIsDown && !mouseIsDown)
+				TouchPanel.AddEvent(MouseId, TouchLocationState.Released, ToMonoGame(UnityEngine.Input.mousePosition));
+			else if (_mouseIsDown )
+				TouchPanel.AddEvent(MouseId, TouchLocationState.Moved, ToMonoGame(UnityEngine.Input.mousePosition));
+			_mouseIsDown = mouseIsDown;
+			//UnityEngine.Input.GetMouseButton(0);
+			//UnityEngine.Input.mousePosition
+
+			//UnityEngine.Input.touches[0].fingerId
+		}
+
+		private Vector2 ToMonoGame(UnityEngine.Vector3 vec)
+		{
+			return new Vector2(vec.x, Screen.height - vec.y);
 		}
 
 		public void Dispose()

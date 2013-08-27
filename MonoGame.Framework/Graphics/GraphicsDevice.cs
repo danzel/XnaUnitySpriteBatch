@@ -30,8 +30,8 @@ namespace Microsoft.Xna.Framework.Graphics
 			}
 		}
 
-		private MaterialPool _materialPool = new MaterialPool();
-		private Mesh _mesh = new Mesh();
+		private readonly MaterialPool _materialPool = new MaterialPool();
+		private readonly Mesh _mesh = new Mesh();
 
 		public void DrawUserIndexedPrimitives(PrimitiveType primitiveType, VertexPositionColorTexture[] vertexData, int vertexOffset, int numVertices, short[] indexData, int indexOffset, int primitiveCount, VertexDeclaration vertexDeclaration)
 		{
