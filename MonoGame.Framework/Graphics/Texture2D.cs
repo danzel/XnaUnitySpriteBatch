@@ -1,4 +1,5 @@
-﻿using UnityTexture = UnityEngine.Texture;
+﻿using System;
+using UnityTexture = UnityEngine.Texture;
 
 namespace Microsoft.Xna.Framework.Graphics
 {
@@ -8,6 +9,8 @@ namespace Microsoft.Xna.Framework.Graphics
 
 		public Texture2D(UnityTexture texture)
 		{
+			if (texture == null)
+				throw new ArgumentNullException("texture");
 			Texture = texture;
 		}
 

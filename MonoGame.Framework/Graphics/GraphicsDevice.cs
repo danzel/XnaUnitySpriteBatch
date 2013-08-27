@@ -5,7 +5,7 @@ namespace Microsoft.Xna.Framework.Graphics
 {
 	public class GraphicsDevice : IDisposable
 	{
-		public Texture2D[] Textures;
+		public Texture2D[] Textures = new Texture2D[1];
 		public Matrix Matrix;
 
 		internal GraphicsDevice(Viewport viewport)
@@ -26,7 +26,6 @@ namespace Microsoft.Xna.Framework.Graphics
 
 		public void Clear(Color color)
 		{
-			throw new NotImplementedException();
 		}
 
 		public void Dispose()
