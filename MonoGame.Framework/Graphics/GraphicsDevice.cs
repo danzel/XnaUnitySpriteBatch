@@ -19,7 +19,8 @@ namespace Microsoft.Xna.Framework.Graphics
 		}
 
 		public Viewport Viewport { get; private set; }
-		public Matrix Matrix {
+		public Matrix Matrix
+		{
 			set
 			{
 				for (var i = 0; i < 4 * 4; i++)
@@ -43,9 +44,9 @@ namespace Microsoft.Xna.Framework.Graphics
 			var mesh = _meshPool.Get();
 			mesh.vertices = GetVector3(vertexData, numVertices);
 			mesh.uv = GetUV(vertexData, numVertices);
-			mesh.colors = GetColor(vertexData, numVertices);
+			mesh.colors32 = GetColor(vertexData, numVertices);
 			mesh.triangles = GetIndex(indexData, primitiveCount * 3); //hack: we know triangles have three
-			
+
 			UnityGraphics.DrawMesh(mesh, _matrix, material, 0);
 		}
 
@@ -71,13 +72,16 @@ namespace Microsoft.Xna.Framework.Graphics
 			return res;
 		}
 
-		private UnityEngine.Color[] GetColor(VertexPositionColorTexture[] vertexData, int count)
+		private Color32[] GetColor(VertexPositionColorTexture[] vertexData, int count)
 		{
-			var res = new UnityEngine.Color[count];
+			var res = new Color32[count];
 			for (int i = 0; i < count; i++)
 			{
-				var v = vertexData[i].Color.ToVector4();
-				res[i] = new UnityEngine.Color(v.X / v.W, v.Y / v.W, v.Z / v.W, v.W);
+				var v = vertexData[i].Color;
+				res[i] = new Color32(v.R, v.G, v.B, v.A);
+				//WARNING: if you are using premultiplied Alpha (which is the XNA default) then you will need to correct this (by undoing the premultiplied alpha), something like:
+				//var v = vertexData[i].Color.ToVector4();
+				//res[i] = new UnityEngine.Color(v.X / v.W, v.Y / v.W, v.Z / v.W, v.W);
 			}
 			return res;
 		}
