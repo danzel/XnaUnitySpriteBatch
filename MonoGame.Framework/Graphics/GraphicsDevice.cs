@@ -120,7 +120,6 @@ namespace Microsoft.Xna.Framework.Graphics
 			public readonly UnityEngine.Vector3[] Vertices;
 			public readonly UnityEngine.Vector2[] UVs;
 			public readonly Color32[] Colors;
-			private int[] _tri;
 
 			public MeshHolder(int spriteCount)
 			{
@@ -133,6 +132,15 @@ namespace Microsoft.Xna.Framework.Graphics
 				Vertices = new UnityEngine.Vector3[vCount];
 				UVs = new UnityEngine.Vector2[vCount];
 				Colors = new Color32[vCount];
+
+				//Put some random crap in this so we can just set the triangles once
+				//if these are not populated then unity totally fucks up our mesh and never draws it
+				for (var i = 0; i < vCount; i++)
+				{
+					Vertices[i] = new UnityEngine.Vector3(1, i);
+					UVs[i] = new UnityEngine.Vector2(0, i);
+					Colors[i] = new Color32(255, 255, 255, 255);
+				}
 
 				var triangles = new int[SpriteCount * 6];
 				for (var i = 0; i < SpriteCount; i++)
@@ -157,11 +165,10 @@ namespace Microsoft.Xna.Framework.Graphics
 					triangles[i * 6 + 5] = i * 4 + 2;
 				}
 
-				//Mesh.vertices = Vertices;
-				//Mesh.uv = UVs;
-				//Mesh.colors32 = Colors;
-				//Mesh.triangles = triangles;
-				_tri = triangles;
+				Mesh.vertices = Vertices;
+				Mesh.uv = UVs;
+				Mesh.colors32 = Colors;
+				Mesh.triangles = triangles;
 			}
 
 			public void Populate(VertexPositionColorTexture[] vertexData, int numVertices)
@@ -177,13 +184,12 @@ namespace Microsoft.Xna.Framework.Graphics
 					var c = vertexData[i].Color;
 					Colors[i] = new Color32(c.R, c.G, c.B, c.A);
 				}
+				//we could clearly less if we remembered how many we used last time
 				Array.Clear(Vertices, numVertices, Vertices.Length - numVertices);
 
-				//Mesh.Clear(true);
 				Mesh.vertices = Vertices;
 				Mesh.uv = UVs;
 				Mesh.colors32 = Colors;
-				Mesh.triangles = _tri;
 			}
 
 			public int NextPowerOf2(int minimum)
