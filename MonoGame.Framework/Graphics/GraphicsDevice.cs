@@ -158,6 +158,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		}
 		private class MeshPool
 		{
+			private List<Mesh> _otherMeshes = new List<Mesh>();
 			private List<Mesh> _meshes = new List<Mesh>();
 			private int _index;
 
@@ -179,6 +180,12 @@ namespace Microsoft.Xna.Framework.Graphics
 			public void Reset()
 			{
 				_index = 0;
+
+				//Double Buffer our Meshes (Doesnt seem to be a win on wp8)
+				//Ref http://forum.unity3d.com/threads/118723-Huge-performance-loss-in-Mesh-CreateVBO-for-dynamic-meshes-IOS
+				var temp = _otherMeshes;
+				_otherMeshes = _meshes;
+				_meshes = temp;
 			}
 		}
 	}
