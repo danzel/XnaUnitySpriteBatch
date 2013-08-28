@@ -38,19 +38,14 @@ namespace Microsoft.Xna.Framework.Graphics
 			Debug.Assert(vertexData != null && vertexData.Length > 0, "The vertexData must not be null or zero length!");
 			Debug.Assert(indexData != null && indexData.Length > 0, "The indexData must not be null or zero length!");
 
-			var material = _materialPool.Get();
-			material.mainTexture = Textures[0].Texture;
+			var material = _materialPool.Get(Textures[0]);
 
 			var mesh = _meshPool.Get();
-			mesh.Clear(); //todo: check the parameter
 			mesh.vertices = GetVector3(vertexData, numVertices);
 			mesh.uv = GetUV(vertexData, numVertices);
 			mesh.colors = GetColor(vertexData, numVertices);
-			mesh.triangles = GetIndex(indexData, primitiveCount * 3); //hack we know triangles have three
+			mesh.triangles = GetIndex(indexData, primitiveCount * 3); //hack: we know triangles have three
 			
-			//todo: check if necessary
-			mesh.RecalculateNormals();
-
 			UnityGraphics.DrawMesh(mesh, _matrix, material, 0);
 		}
 
@@ -100,6 +95,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		public void ResetPools()
 		{
 			_materialPool.Reset();
+			_meshPool.Reset();
 		}
 
 		public void Clear(Color color)
@@ -113,19 +109,46 @@ namespace Microsoft.Xna.Framework.Graphics
 
 		private class MaterialPool
 		{
-			private List<Material> _materials = new List<Material>();
+			private class MaterialHolder
+			{
+				public readonly Material Material;
+				public readonly Texture2D Texture2D;
+
+				public MaterialHolder(Material material, Texture2D texture2D)
+				{
+					Material = material;
+					Texture2D = texture2D;
+				}
+			}
+
+			private readonly List<MaterialHolder> _materials = new List<MaterialHolder>();
 			private int _index;
 
-			public Material Get()
+			private MaterialHolder Create(Texture2D texture)
 			{
-				if (_materials.Count == _index)
+				var mat = new Material(Shader.Find("Custom/SpriteShader"));
+				mat.mainTexture = texture.Texture;
+				mat.renderQueue += _materials.Count;
+				return new MaterialHolder(mat, texture);
+			}
+
+			public Material Get(Texture2D texture)
+			{
+				while (_index < _materials.Count)
 				{
-					_materials.Add(new Material(Shader.Find("Custom/SpriteShader")));
-					_materials[_index].renderQueue += _index;
+					if (_materials[_index].Texture2D == texture)
+					{
+						_index++;
+						return _materials[_index - 1].Material;
+					}
+
+					_index++;
 				}
 
+				var material = Create(texture);
+				_materials.Add(material);
 				_index++;
-				return _materials[_index - 1];
+				return _materials[_index - 1].Material;
 			}
 
 			public void Reset()
@@ -143,6 +166,10 @@ namespace Microsoft.Xna.Framework.Graphics
 				if (_meshes.Count == _index)
 				{
 					_meshes.Add(new Mesh());
+				}
+				else
+				{
+					_meshes[_index].Clear(true);
 				}
 
 				_index++;
