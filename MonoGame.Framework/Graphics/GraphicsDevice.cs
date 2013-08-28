@@ -209,7 +209,7 @@ namespace Microsoft.Xna.Framework.Graphics
 			private List<MeshHolder> _unusedMeshes = new List<MeshHolder>();
 			private List<MeshHolder> _usedMeshes = new List<MeshHolder>();
 
-			//private List<MeshHolder> _otherMeshes = new List<MeshHolder>();
+			private List<MeshHolder> _otherMeshes = new List<MeshHolder>();
 			//private int _index;
 
 			/// <summary>
@@ -243,15 +243,17 @@ namespace Microsoft.Xna.Framework.Graphics
 
 			public void Reset()
 			{
-				//_index = 0;
-
-				_unusedMeshes.AddRange(_usedMeshes);
-				_usedMeshes.Clear();
 				//Double Buffer our Meshes (Doesnt seem to be a win on wp8)
 				//Ref http://forum.unity3d.com/threads/118723-Huge-performance-loss-in-Mesh-CreateVBO-for-dynamic-meshes-IOS
-				//var temp = _otherMeshes;
-				//_otherMeshes = _meshes;
-				//_meshes = temp;
+				
+				//meshes from last frame are now unused
+				_unusedMeshes.AddRange(_otherMeshes);
+				_otherMeshes.Clear();
+				
+				//swap our use meshes and the now empty other meshes
+				var temp = _otherMeshes;
+				_otherMeshes = _usedMeshes;
+				_usedMeshes = temp;
 			}
 		}
 	}
