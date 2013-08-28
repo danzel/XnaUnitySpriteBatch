@@ -41,59 +41,10 @@ namespace Microsoft.Xna.Framework.Graphics
 
 			var material = _materialPool.Get(Textures[0]);
 
-			var mesh = _meshPool.Get();
-			mesh.vertices = GetVector3(vertexData, numVertices);
-			mesh.uv = GetUV(vertexData, numVertices);
-			mesh.colors32 = GetColor(vertexData, numVertices);
-			mesh.triangles = GetIndex(indexData, primitiveCount * 3); //hack: we know triangles have three
+			var mesh = _meshPool.Get(primitiveCount / 2);
+			mesh.Populate(vertexData, numVertices);
 
-			UnityGraphics.DrawMesh(mesh, _matrix, material, 0);
-		}
-
-		private UnityEngine.Vector3[] GetVector3(VertexPositionColorTexture[] vertexData, int count)
-		{
-			var res = new UnityEngine.Vector3[count];
-			for (int i = 0; i < count; i++)
-			{
-				var v = vertexData[i].Position;
-				res[i] = new UnityEngine.Vector3(v.X, v.Y, v.Z);
-			}
-			return res;
-		}
-
-		private UnityEngine.Vector2[] GetUV(VertexPositionColorTexture[] vertexData, int count)
-		{
-			var res = new UnityEngine.Vector2[count];
-			for (int i = 0; i < count; i++)
-			{
-				var v = vertexData[i].TextureCoordinate;
-				res[i] = new UnityEngine.Vector2(v.X, 1 - v.Y);
-			}
-			return res;
-		}
-
-		private Color32[] GetColor(VertexPositionColorTexture[] vertexData, int count)
-		{
-			var res = new Color32[count];
-			for (int i = 0; i < count; i++)
-			{
-				var v = vertexData[i].Color;
-				res[i] = new Color32(v.R, v.G, v.B, v.A);
-				//WARNING: if you are using premultiplied Alpha (which is the XNA default) then you will need to correct this (by undoing the premultiplied alpha), something like:
-				//var v = vertexData[i].Color.ToVector4();
-				//res[i] = new UnityEngine.Color(v.X / v.W, v.Y / v.W, v.Z / v.W, v.W);
-			}
-			return res;
-		}
-
-		private int[] GetIndex(short[] indexes, int count)
-		{
-			var res = new int[count];
-			for (int i = 0; i < count; i++)
-			{
-				res[i] = indexes[i];
-			}
-			return res;
+			UnityGraphics.DrawMesh(mesh.Mesh, _matrix, material, 0);
 		}
 
 		public void ResetPools()
@@ -160,36 +111,141 @@ namespace Microsoft.Xna.Framework.Graphics
 				_index = 0;
 			}
 		}
+
+		private class MeshHolder
+		{
+			public readonly int SpriteCount;
+			public readonly Mesh Mesh;
+
+			public readonly UnityEngine.Vector3[] Vertices;
+			public readonly UnityEngine.Vector2[] UVs;
+			public readonly Color32[] Colors;
+			private int[] _tri;
+
+			public MeshHolder(int spriteCount)
+			{
+				Mesh = new Mesh();
+				//Mesh.MarkDynamic(); //Seems to be a win on wp8
+
+				SpriteCount = NextPowerOf2(spriteCount);
+				int vCount = SpriteCount * 4;
+
+				Vertices = new UnityEngine.Vector3[vCount];
+				UVs = new UnityEngine.Vector2[vCount];
+				Colors = new Color32[vCount];
+
+				var triangles = new int[SpriteCount * 6];
+				for (var i = 0; i < SpriteCount; i++)
+				{
+					/*
+					 *  TL    TR
+					 *   0----1 0,1,2,3 = index offsets for vertex indices
+					 *   |   /| TL,TR,BL,BR are vertex references in SpriteBatchItem.
+					 *   |  / |
+					 *   | /  |
+					 *   |/   |
+					 *   2----3
+					 *  BL    BR
+					 */
+					// Triangle 1
+					triangles[i * 6 + 0] = i * 4;
+					triangles[i * 6 + 1] = i * 4 + 1;
+					triangles[i * 6 + 2] = i * 4 + 2;
+					// Triangle 2
+					triangles[i * 6 + 3] = i * 4 + 1;
+					triangles[i * 6 + 4] = i * 4 + 3;
+					triangles[i * 6 + 5] = i * 4 + 2;
+				}
+
+				//Mesh.vertices = Vertices;
+				//Mesh.uv = UVs;
+				//Mesh.colors32 = Colors;
+				//Mesh.triangles = triangles;
+				_tri = triangles;
+			}
+
+			public void Populate(VertexPositionColorTexture[] vertexData, int numVertices)
+			{
+				for (int i = 0; i < numVertices; i++)
+				{
+					var p = vertexData[i].Position;
+					Vertices[i] = new UnityEngine.Vector3(p.X, p.Y, p.Z);
+
+					var uv = vertexData[i].TextureCoordinate;
+					UVs[i] = new UnityEngine.Vector2(uv.X, 1 - uv.Y);
+
+					var c = vertexData[i].Color;
+					Colors[i] = new Color32(c.R, c.G, c.B, c.A);
+				}
+				Array.Clear(Vertices, numVertices, Vertices.Length - numVertices);
+
+				//Mesh.Clear(true);
+				Mesh.vertices = Vertices;
+				Mesh.uv = UVs;
+				Mesh.colors32 = Colors;
+				Mesh.triangles = _tri;
+			}
+
+			public int NextPowerOf2(int minimum)
+			{
+				int result = 1;
+
+				while (result < minimum)
+					result *= 2;
+
+				return result;
+			}
+		}
+
+
 		private class MeshPool
 		{
-			private List<Mesh> _otherMeshes = new List<Mesh>();
-			private List<Mesh> _meshes = new List<Mesh>();
-			private int _index;
+			private List<MeshHolder> _unusedMeshes = new List<MeshHolder>();
+			private List<MeshHolder> _usedMeshes = new List<MeshHolder>();
 
-			public Mesh Get()
+			//private List<MeshHolder> _otherMeshes = new List<MeshHolder>();
+			//private int _index;
+
+			/// <summary>
+			/// get a mesh with at least this many triangles
+			/// </summary>
+			public MeshHolder Get(int spriteCount)
 			{
-				if (_meshes.Count == _index)
+				MeshHolder best = null;
+				int bestIndex = -1;
+				for (int i = 0; i < _unusedMeshes.Count; i++)
 				{
-					_meshes.Add(new Mesh());
+					var unusedMesh = _unusedMeshes[i];
+					if ((best == null || best.SpriteCount > unusedMesh.SpriteCount) && unusedMesh.SpriteCount >= spriteCount)
+					{
+						best = unusedMesh;
+						bestIndex = i;
+					}
+				}
+				if (best == null)
+				{
+					best = new MeshHolder(spriteCount);
 				}
 				else
 				{
-					_meshes[_index].Clear(true);
+					_unusedMeshes.RemoveAt(bestIndex);
 				}
+				_usedMeshes.Add(best);
 
-				_index++;
-				return _meshes[_index - 1];
+				return best;
 			}
 
 			public void Reset()
 			{
-				_index = 0;
+				//_index = 0;
 
+				_unusedMeshes.AddRange(_usedMeshes);
+				_usedMeshes.Clear();
 				//Double Buffer our Meshes (Doesnt seem to be a win on wp8)
 				//Ref http://forum.unity3d.com/threads/118723-Huge-performance-loss-in-Mesh-CreateVBO-for-dynamic-meshes-IOS
-				var temp = _otherMeshes;
-				_otherMeshes = _meshes;
-				_meshes = temp;
+				//var temp = _otherMeshes;
+				//_otherMeshes = _meshes;
+				//_meshes = temp;
 			}
 		}
 	}
