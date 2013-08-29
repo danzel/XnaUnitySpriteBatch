@@ -78,10 +78,11 @@ namespace Microsoft.Xna.Framework.Graphics
 
 			private readonly List<MaterialHolder> _materials = new List<MaterialHolder>();
 			private int _index;
+			private readonly Shader _shader = Shader.Find("Custom/SpriteShader");
 
 			private MaterialHolder Create(Texture2D texture)
 			{
-				var mat = new Material(Shader.Find("Custom/SpriteShader"));
+				var mat = new Material(_shader);
 				mat.mainTexture = texture.Texture;
 				mat.renderQueue += _materials.Count;
 				return new MaterialHolder(mat, texture);
