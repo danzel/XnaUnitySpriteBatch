@@ -22,13 +22,19 @@ namespace Microsoft.Xna.Framework.Audio
 
 		public void Play()
 		{
-			//todo: I think we will need to pool our audio source objects like MonoGame does in
-			_audioSource.Play();
+			Play(1, 0, 0);
 		}
 
 		public void Play(float volume, float pitch, float pan)
 		{
-			Play(); //todo: pitch/pan
+			//todo: we need to pool our audio source objects like MonoGame does
+
+			//ref http://answers.unity3d.com/questions/55023/how-does-audiosourcepitch-changes-pitch.html
+
+			_audioSource.volume = volume;
+			_audioSource.pan = pan;
+			_audioSource.pitch = Mathf.Pow(2, pitch);
+			_audioSource.Play();
 		}
 	}
 }
