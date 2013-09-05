@@ -17,22 +17,32 @@ namespace Microsoft.Xna.Framework.Content
 		{
 			if (typeof(T) == typeof(Texture2D))
 			{
-				return new Texture2D(UnityResources.Load(fileName, typeof(UnityTexture)) as UnityTexture) as T;
+				return new Texture2D(NativeLoad<UnityTexture>(fileName)) as T;
 			}
 			if (typeof(T) == typeof(SoundEffect))
 			{
-				return new SoundEffect(UnityResources.Load(fileName, typeof(UnityAudioClip)) as UnityAudioClip) as T;
+				return new SoundEffect(NativeLoad<UnityAudioClip>(fileName)) as T;
 			}
 			if (typeof(T) == typeof(Song))
 			{
-				return new Song(UnityResources.Load(fileName, typeof(UnityAudioClip)) as UnityAudioClip) as T;
+				return new Song(NativeLoad<UnityAudioClip>(fileName)) as T;
 			}
 			if (typeof(T) == typeof(string))
 			{
-				return ((TextAsset)UnityResources.Load(fileName, typeof(TextAsset))).text as T;
+				return (NativeLoad<TextAsset>(fileName)).text as T;
 			}
 			//throw new Exception();
 			return default(T);
+		}
+
+		private T NativeLoad<T>(string fileName) where T : class
+		{
+			var res = UnityResources.Load(fileName, typeof(T)) as T;
+			if (res == null)
+			{
+				throw new Exception("Failed to load " + fileName + " as " + typeof(T));
+			}
+			return res;
 		}
 	}
 }
