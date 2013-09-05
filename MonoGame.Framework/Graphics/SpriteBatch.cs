@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using UnityEngine;
 
 namespace Microsoft.Xna.Framework.Graphics
 {
@@ -116,8 +117,11 @@ namespace Microsoft.Xna.Framework.Graphics
 #else
             // GL requires a half pixel offset to match DX.
             //Matrix.CreateOrthographicOffCenter(0, vp.Width, vp.Height, 0, 0, 1, out projection);
-			_matrix.M41 += -0.5f * _matrix.M11;
-			_matrix.M42 += -0.5f * _matrix.M22;
+			if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
+			{
+				_matrix.M41 += -0.5f * _matrix.M11;
+				_matrix.M42 += -0.5f * _matrix.M22;
+			}
 #endif
             //Matrix.Multiply(ref _matrix, ref projection, out projection);
 
