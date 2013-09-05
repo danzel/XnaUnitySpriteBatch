@@ -8,7 +8,7 @@ namespace Microsoft.Xna.Framework.Audio
 		private readonly AudioClip _audioClip;
 		private AudioSource _audioSource;
 
-		private static GameObject _gameObject = new GameObject();
+		internal static readonly GameObject GameObject = new GameObject();
 
 		public SoundEffect(AudioClip audioClip)
 		{
@@ -16,7 +16,7 @@ namespace Microsoft.Xna.Framework.Audio
 				throw new Exception("AudioClip is null");
 
 			_audioClip = audioClip;
-			_audioSource = _gameObject.AddComponent<AudioSource>();
+			_audioSource = GameObject.AddComponent<AudioSource>();
 			_audioSource.clip = _audioClip;
 		}
 

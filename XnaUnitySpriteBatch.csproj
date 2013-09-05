@@ -144,6 +144,9 @@
     <Compile Include="..\MonoGame\MonoGame.Framework\Matrix.cs">
       <Link>MonoGame.Framework\Matrix.cs</Link>
     </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Media\MediaState.cs">
+      <Link>MonoGame.Framework\Media\MediaState.cs</Link>
+    </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\Plane.cs">
       <Link>MonoGame.Framework\Plane.cs</Link>
     </Compile>
@@ -190,6 +193,7 @@
     <Compile Include="MonoGame.Framework\Graphics\States\RasterizerState.cs" />
     <Compile Include="MonoGame.Framework\Graphics\States\SamplerState.cs" />
     <Compile Include="MonoGame.Framework\Graphics\Texture2D.cs" />
+    <Compile Include="MonoGame.Framework\Media\MediaPlayer.cs" />
     <Compile Include="MonoGame.Framework\Media\Song.cs" />
   </ItemGroup>
   <ItemGroup>

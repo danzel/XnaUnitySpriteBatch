@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using UnityTexture = UnityEngine.Texture2D;
 using UnityAudioClip = UnityEngine.AudioClip;
 using UnityResources = UnityEngine.Resources;
@@ -21,6 +22,10 @@ namespace Microsoft.Xna.Framework.Content
 			if (typeof(T) == typeof(SoundEffect))
 			{
 				return new SoundEffect(UnityResources.Load(fileName, typeof(UnityAudioClip)) as UnityAudioClip) as T;
+			}
+			if (typeof(T) == typeof(Song))
+			{
+				return new Song(UnityResources.Load(fileName, typeof(UnityAudioClip)) as UnityAudioClip) as T;
 			}
 			if (typeof(T) == typeof(string))
 			{
