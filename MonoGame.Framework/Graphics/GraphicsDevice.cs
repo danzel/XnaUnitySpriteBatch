@@ -15,10 +15,17 @@ namespace Microsoft.Xna.Framework.Graphics
 		internal GraphicsDevice(Viewport viewport)
 		{
 			Viewport = viewport;
-			_baseMatrix = Matrix4x4.TRS(new UnityEngine.Vector3(-viewport.Width / 2, viewport.Height / 2, 0), UnityEngine.Quaternion.identity, new UnityEngine.Vector3(1, -1, 1));
 		}
 
-		public Viewport Viewport { get; private set; }
+		private Viewport _viewport;
+		public Viewport Viewport {
+			get { return _viewport; }
+			internal set
+			{
+				_viewport = value;
+				_baseMatrix = Matrix4x4.TRS(new UnityEngine.Vector3(-_viewport.Width / 2, _viewport.Height / 2, 0), UnityEngine.Quaternion.identity, new UnityEngine.Vector3(1, -1, 1));
+			}
+		}
 		public Matrix Matrix
 		{
 			set

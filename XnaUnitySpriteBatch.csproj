@@ -195,6 +195,7 @@
     <Compile Include="MonoGame.Framework\Graphics\Texture2D.cs" />
     <Compile Include="MonoGame.Framework\Media\MediaPlayer.cs" />
     <Compile Include="MonoGame.Framework\Media\Song.cs" />
+    <Compile Include="MonoGame.Framework\UnityGameWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -12,7 +12,7 @@ namespace Microsoft.Xna.Framework
 		public GraphicsDevice GraphicsDevice { get; private set; }
 
 		internal static Game Instance { get; private set; }
-		public GameWindow Window { get; private set; }
+		public GameWindow Window { get { return _window; } }
 		public ContentManager Content { get; private set; }
 
 		private readonly GameTime _gameTime = new GameTime(new TimeSpan(), TimeSpan.FromSeconds(Time.fixedDeltaTime));
@@ -22,6 +22,8 @@ namespace Microsoft.Xna.Framework
 		{
 			GraphicsDevice = new GraphicsDevice(new Viewport(0, 0, Screen.width, Screen.height));
 			Content = new ContentManager();
+
+			_window = new UnityGameWindow(GraphicsDevice);
 		}
 
 		/// <summary>
@@ -38,6 +40,7 @@ namespace Microsoft.Xna.Framework
 		/// </summary>
 		public void UnityUpdate()
 		{
+			_window.Update();
 			UpdateInput();
 
 			GraphicsDevice.ResetPools();
@@ -51,6 +54,7 @@ namespace Microsoft.Xna.Framework
 		}
 
 		private bool _mouseIsDown = false;
+		private UnityGameWindow _window;
 
 		private const int MouseId = int.MinValue;
 
@@ -61,9 +65,13 @@ namespace Microsoft.Xna.Framework
 				TouchPanel.AddEvent(MouseId, TouchLocationState.Pressed, ToMonoGame(UnityEngine.Input.mousePosition));
 			else if (_mouseIsDown && !mouseIsDown)
 				TouchPanel.AddEvent(MouseId, TouchLocationState.Released, ToMonoGame(UnityEngine.Input.mousePosition));
-			else if (_mouseIsDown )
+			else if (_mouseIsDown)
 				TouchPanel.AddEvent(MouseId, TouchLocationState.Moved, ToMonoGame(UnityEngine.Input.mousePosition));
 			_mouseIsDown = mouseIsDown;
+
+			//todo: multitouch
+
+
 			//UnityEngine.Input.GetMouseButton(0);
 			//UnityEngine.Input.mousePosition
 
