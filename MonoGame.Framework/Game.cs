@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -27,24 +28,52 @@ namespace Microsoft.Xna.Framework
 		}
 
 		/// <summary>
-		/// Must be called by Unity in a FixedUpdate call
-		/// </summary>
-		public void UnityFixedUpdate()
-		{
-			_gameTime.TotalGameTime = _gameTime.TotalGameTime.Add(_fixedDeltaTime);
-			Update(_gameTime);
-		}
-
-		/// <summary>
 		/// Must be called by Unity in a Update call
 		/// </summary>
 		public void UnityUpdate()
 		{
-			_window.Update();
-			UpdateInput();
+			PreUpdate();
+
+			RunUpdates();
 
 			GraphicsDevice.ResetPools();
 			Draw(_gameTime);
+		}
+
+		private readonly TimeSpan _targetElapsedTime = TimeSpan.FromTicks((long)10000000 / (long)60);
+		private readonly TimeSpan _maxElapsedTime = TimeSpan.FromMilliseconds(500);
+
+		private readonly Stopwatch _gameTimer = Stopwatch.StartNew();
+		private TimeSpan _accumulatedElapsedTime;
+
+		//Taken from MonoGame.Game.Tick
+		private void RunUpdates()
+		{
+			_gameTime.ElapsedGameTime = _targetElapsedTime;
+			var stepCount = 0;
+
+			// Advance the accumulated elapsed time.
+			_accumulatedElapsedTime += _gameTimer.Elapsed;
+			_gameTimer.Reset();
+			_gameTimer.Start();
+			// Perform as many full fixed length time steps as we can.
+			while (_accumulatedElapsedTime >= _targetElapsedTime)
+			{
+				_gameTime.TotalGameTime += _targetElapsedTime;
+				_accumulatedElapsedTime -= _targetElapsedTime;
+				++stepCount;
+
+				Update(_gameTime);
+			}
+			// Draw needs to know the total elapsed time
+			// that occured for the fixed length updates.
+			_gameTime.ElapsedGameTime = TimeSpan.FromTicks(_targetElapsedTime.Ticks * stepCount);
+		}
+
+		private void PreUpdate()
+		{
+			_window.Update();
+			UpdateInput();
 		}
 
 		public void UnityInitialize()
