@@ -15,6 +15,18 @@ namespace Microsoft.Xna.Framework.Media
 			AudioSource.Play();
 		}
 
+		public static float Volume
+		{
+			get
+			{
+				return AudioSource.volume;
+			}
+			set
+			{
+				AudioSource.volume = value;
+			}
+		}
+
 		public static void Stop()
 		{
 			AudioSource.Stop();

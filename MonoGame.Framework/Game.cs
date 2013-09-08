@@ -112,6 +112,11 @@ namespace Microsoft.Xna.Framework
 			return new Vector2(vec.x, Screen.height - vec.y);
 		}
 
+		public void Exit()
+		{
+			Application.Quit();
+		}
+
 		public void Dispose()
 		{
 		}
