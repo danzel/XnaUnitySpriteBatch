@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework
 		}
 
 		private readonly TimeSpan _targetElapsedTime = TimeSpan.FromTicks((long)10000000 / (long)60);
-		private readonly TimeSpan _maxElapsedTime = TimeSpan.FromTicks((long)20000000 / (long)60);
+		private readonly TimeSpan _maxElapsedTime = TimeSpan.FromTicks((long)30000000 / (long)60);
 
 		private readonly Stopwatch _gameTimer = Stopwatch.StartNew();
 		private TimeSpan _accumulatedElapsedTime;
@@ -53,7 +53,10 @@ namespace Microsoft.Xna.Framework
 			var stepCount = 0;
 
 			// Advance the accumulated elapsed time.
-			_accumulatedElapsedTime += _gameTimer.Elapsed;
+			var elapsed = _gameTimer.Elapsed;
+			if (elapsed > _maxElapsedTime)
+				elapsed = _maxElapsedTime;
+			_accumulatedElapsedTime += elapsed;
 			_gameTimer.Reset();
 			_gameTimer.Start();
 			// Perform as many full fixed length time steps as we can.
