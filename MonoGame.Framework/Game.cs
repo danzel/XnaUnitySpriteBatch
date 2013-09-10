@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework
 		}
 
 		private readonly TimeSpan _targetElapsedTime = TimeSpan.FromTicks((long)10000000 / (long)60);
-		private readonly TimeSpan _maxElapsedTime = TimeSpan.FromMilliseconds(500);
+		private readonly TimeSpan _maxElapsedTime = TimeSpan.FromTicks((long)20000000 / (long)60);
 
 		private readonly Stopwatch _gameTimer = Stopwatch.StartNew();
 		private TimeSpan _accumulatedElapsedTime;
