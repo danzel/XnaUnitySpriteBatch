@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Microsoft.Xna.Framework.Media
 {
@@ -9,6 +10,11 @@ namespace Microsoft.Xna.Framework.Media
 		public Song(AudioClip audioClip)
 		{
 			AudioClip = audioClip;
+		}
+
+		public TimeSpan Duration
+		{
+			get { return TimeSpan.FromSeconds(AudioClip.length); }
 		}
 	}
 }
