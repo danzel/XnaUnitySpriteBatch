@@ -81,6 +81,9 @@
     <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\GraphicsResource.cs">
       <Link>MonoGame.Framework\Graphics\GraphicsResource.cs</Link>
     </Compile>
+    <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\PresentInterval.cs">
+      <Link>MonoGame.Framework\Graphics\PresentInterval.cs</Link>
+    </Compile>
     <Compile Include="..\MonoGame\MonoGame.Framework\Graphics\SpriteBatcher.cs">
       <Link>MonoGame.Framework\Graphics\SpriteBatcher.cs</Link>
     </Compile>

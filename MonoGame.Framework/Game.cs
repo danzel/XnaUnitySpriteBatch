@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Media;
 using UnityEngine;
 
 namespace Microsoft.Xna.Framework
@@ -69,6 +70,7 @@ namespace Microsoft.Xna.Framework
 				_accumulatedElapsedTime -= _targetElapsedTime;
 				++stepCount;
 
+				MediaPlayer.Update((float)_targetElapsedTime.TotalSeconds);
 				Update(_gameTime);
 			}
 			// Draw needs to know the total elapsed time
